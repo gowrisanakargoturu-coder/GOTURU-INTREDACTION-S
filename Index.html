@@ -1,739 +1,2366 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
+  <!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Goturu Interactions Portal - Secure Edition</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-darkMode: 'class',
-theme: {
-extend: {
-colors: {
-darkBg: '#09090b',
-cardBg: '#121216',
-accent: '#8b5cf6',
-accentHover: '#7c3aed',
-govBlue: '#1e3a8a',
-govDark: '#0f172a'
-}
-}
-}
-}
-</script>
-<!-- Google Fonts Inter & Orbitron -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12355b">
+<title>Goturu Interactions Portal</title>
+
 <style>
-* {
-box-sizing: border-box;
--webkit-tap-highlight-color: transparent;
+:root{
+  --navy:#12355b;
+  --navy-dark:#0b2947;
+  --blue:#1d4f7a;
+  --gold:#c49a3a;
+  --cream:#f4f1e8;
+  --paper:#fffdf8;
+  --line:#c9d0d7;
+  --ink:#1b2733;
+  --muted:#5d6873;
+  --green:#356b4b;
+  --red:#963737;
 }
-body {
-font-family: 'Inter', sans-serif;
-background-color: #09090b;
-color: #f4f4f5;
-margin: 0;
-padding: 0;
-width: 100vw;
-min-height: 100vh;
-overflow-x: hidden;
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
 }
-.intro-font {
-font-family: 'Orbitron', sans-serif;
+
+button,input,textarea,select{
+  font:inherit;
 }
-@keyframes unityLogoIntro {
-0% { opacity: 0; transform: scale(0.5) translateY(30px); letter-spacing: 0.1em; }
-50% { opacity: 1; transform: scale(1.03) translateY(0); letter-spacing: 0.25em; text-shadow: 0 0 30px rgba(139, 92, 246, 0.7); }
-100% { opacity: 1; transform: scale(1) translateY(0); letter-spacing: 0.18em; text-shadow: 0 0 12px rgba(139, 92, 246, 0.4); }
+
+button{
+  cursor:pointer;
 }
-.animate-unity {
-animation: unityLogoIntro 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+.hidden{
+  display:none!important;
 }
-@keyframes fadeOutIntro {
-0% { opacity: 1; visibility: visible; }
-85% { opacity: 1; visibility: visible; }
-100% { opacity: 0; visibility: hidden; }
+
+.top-strip{
+  height:7px;
+  background:linear-gradient(
+    to right,
+    #d9a52e 0 33.33%,
+    #ffffff 33.33% 66.66%,
+    #3e7c52 66.66% 100%
+  );
 }
-.intro-screen-hide {
-animation: fadeOutIntro 0.9s ease-in-out forwards;
+
+.gov-header{
+  background:#fff;
+  border-bottom:1px solid #adb7c1;
 }
-.spinner-circle {
-transition: stroke-dashoffset 0.4s ease;
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.emblem{
+  width:62px;
+  height:62px;
+  flex-shrink:0;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  background:#faf8f0;
+  display:grid;
+  place-items:center;
+  color:var(--navy);
+  font-size:25px;
+  font-weight:bold;
+}
+
+.brand small{
+  display:block;
+  color:#697681;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.brand h1{
+  margin:0;
+  color:var(--navy);
+  font-size:25px;
+  letter-spacing:.3px;
+}
+
+.brand p{
+  margin:4px 0 0;
+  color:#68747f;
+  font-size:12px;
+}
+
+.navbar{
+  background:var(--navy-dark);
+  color:white;
+}
+
+.nav-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:9px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.nav-title{
+  font-size:12px;
+  letter-spacing:.4px;
+}
+
+.nav-user{
+  font-size:11px;
+  color:#dce5ec;
+}
+
+.container{
+  width:min(1200px,100%);
+  margin:auto;
+  padding:28px 20px 45px;
+}
+
+.paper{
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 3px 14px rgba(20,35,50,.08);
+}
+
+/* AUTH */
+
+.auth-wrap{
+  width:min(470px,100%);
+  margin:35px auto;
+}
+
+.auth-head{
+  text-align:center;
+  padding:25px 24px 18px;
+  border-bottom:1px solid var(--line);
+}
+
+.auth-head .emblem{
+  margin:auto;
+  width:55px;
+  height:55px;
+  font-size:22px;
+}
+
+.auth-head h2{
+  margin:10px 0 4px;
+  color:var(--navy);
+  font-size:22px;
+}
+
+.auth-head p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  border-bottom:1px solid var(--line);
+}
+
+.tab{
+  border:0;
+  padding:11px 5px;
+  background:#edf0f2;
+  color:#56636f;
+  font-size:11px;
+}
+
+.tab.active{
+  background:var(--navy);
+  color:white;
+}
+
+.form{
+  padding:24px;
+}
+
+.field{
+  margin-bottom:16px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  color:#44515d;
+  font-size:11px;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+input,textarea{
+  width:100%;
+  padding:11px 12px;
+  background:white;
+  border:1px solid #b8c1c9;
+  color:#17222c;
+  outline:none;
+  border-radius:2px;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--navy);
+  box-shadow:0 0 0 2px rgba(18,53,91,.08);
+}
+
+.primary{
+  width:100%;
+  padding:11px 14px;
+  border:1px solid #08243e;
+  background:var(--navy);
+  color:#fff;
+  font-weight:bold;
+}
+
+.primary:hover{
+  background:#194a78;
+}
+
+.error{
+  padding:9px 11px;
+  margin-bottom:15px;
+  background:#fff0f0;
+  border:1px solid #dfb4b4;
+  color:#8b2929;
+  font-size:11px;
+}
+
+.info{
+  margin-top:14px;
+  padding:9px 11px;
+  background:#fff8e5;
+  border:1px solid #ddc57f;
+  color:#665018;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* DASHBOARD */
+
+.dashboard-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.dashboard-head h2{
+  margin:0;
+  color:var(--navy);
+  font-size:26px;
+}
+
+.dashboard-head p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.profile-btn{
+  border:1px solid var(--line);
+  background:white;
+  color:var(--navy);
+  padding:9px 13px;
+  font-weight:bold;
+  font-size:11px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 2px 9px rgba(20,35,50,.06);
+}
+
+.card-head{
+  min-height:50px;
+  padding:12px 15px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.card-head h3{
+  margin:0;
+  color:var(--navy);
+  font-size:15px;
+}
+
+.card-body{
+  padding:16px;
+}
+
+.module{
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.module h3{
+  margin:10px 0 7px;
+  color:var(--navy);
+  font-size:19px;
+}
+
+.module p{
+  margin:0;
+  color:#52606c;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 7px;
+  border:1px solid #9fb2c2;
+  background:#edf3f7;
+  color:var(--navy);
+  font-size:9px;
+  font-weight:bold;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+}
+
+.secondary{
+  border:1px solid #bbc5cd;
+  background:#f2f4f5;
+  color:var(--navy);
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.secondary:hover{
+  background:#e4e9ed;
+}
+
+.notice{
+  margin-bottom:9px;
+  padding:11px 12px;
+  border-left:4px solid var(--gold);
+  background:#fffdf2;
+}
+
+.notice:last-child{
+  margin-bottom:0;
+}
+
+.notice-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.notice strong{
+  color:var(--navy);
+  font-size:13px;
+}
+
+.notice time{
+  color:#7a8289;
+  font-size:9px;
+  white-space:nowrap;
+}
+
+.notice p{
+  margin:6px 0 0;
+  color:#4e5b65;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.notice-actions{
+  margin-top:7px;
+  display:flex;
+  gap:5px;
+}
+
+.small-btn{
+  padding:4px 7px;
+  border:1px solid #bdc6cd;
+  background:white;
+  font-size:9px;
+}
+
+.small-btn.danger{
+  color:var(--red);
+  border-color:#d5aaaa;
+}
+
+.small-btn.blue{
+  color:var(--navy);
+}
+
+/* ADMIN */
+
+.admin{
+  border-color:#9eabb6;
+}
+
+.admin .card-head{
+  background:#edf2f5;
+}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.admin-title{
+  margin:0 0 9px;
+  color:var(--navy);
+  font-size:13px;
+}
+
+.list{
+  max-height:260px;
+  overflow:auto;
+  border:1px solid #d5dbe0;
+  background:#fff;
+  padding:0 10px;
+}
+
+.list-item{
+  padding:10px 0;
+  border-bottom:1px solid #e1e5e8;
+  font-size:11px;
+}
+
+.list-item:last-child{
+  border-bottom:0;
+}
+
+.muted{
+  color:#6c7780;
+}
+
+.suggestion-text{
+  margin-top:6px;
+  padding:7px;
+  background:#f3f5f6;
+  border:1px solid #e0e4e7;
+  color:#2e3942;
+  line-height:1.45;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+}
+
+/* MODAL */
+
+.modal-back{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  background:rgba(8,25,42,.66);
+}
+
+.modal{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--paper);
+  border:1px solid #aab5bf;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.modal-head{
+  padding:13px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal-head h3{
+  margin:0;
+  color:var(--navy);
+  font-size:15px;
+}
+
+.modal-body{
+  padding:18px;
+}
+
+.close{
+  border:0;
+  background:transparent;
+  color:#64717c;
+  font-size:11px;
+}
+
+.modal-text{
+  color:#4e5b66;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.modal-box{
+  padding:13px;
+  background:#f4f6f7;
+  border:1px solid #d5dce1;
+  margin-bottom:12px;
+}
+
+.topic-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.topic{
+  text-align:left;
+  padding:10px;
+  border:1px solid #c6cdd3;
+  background:white;
+  color:#36434e;
+  font-size:11px;
+}
+
+.topic.active{
+  border-color:var(--navy);
+  background:#eef3f7;
+  color:var(--navy);
+  font-weight:bold;
+}
+
+/* DRAWER */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:110;
+  background:rgba(0,0,0,.35);
+}
+
+.drawer{
+  position:fixed;
+  right:0;
+  top:0;
+  z-index:120;
+  width:min(350px,92vw);
+  height:100vh;
+  padding:22px;
+  background:#fffdf8;
+  border-left:1px solid var(--line);
+  box-shadow:-10px 0 30px rgba(0,0,0,.15);
+}
+
+.profile-circle{
+  width:70px;
+  height:70px;
+  margin:20px auto 12px;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--navy);
+  font-size:25px;
+  font-weight:bold;
+  background:#faf8ef;
+}
+
+.drawer h3{
+  margin:0;
+  text-align:center;
+  color:var(--navy);
+  font-size:17px;
+}
+
+.drawer-role{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.hr{
+  height:1px;
+  background:var(--line);
+  margin:20px 0;
+}
+
+.drawer-info{
+  color:#5c6872;
+  font-size:11px;
+  line-height:1.7;
+}
+
+/* FOOTER */
+
+.footer{
+  padding:18px;
+  border-top:1px solid var(--line);
+  background:#e9edf0;
+  text-align:center;
+  color:#66727c;
+  font-size:10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:760px){
+  .header-inner{
+    padding:12px 14px;
+  }
+
+  .emblem{
+    width:49px;
+    height:49px;
+    font-size:20px;
+  }
+
+  .brand h1{
+    font-size:19px;
+  }
+
+  .brand p{
+    font-size:10px;
+  }
+
+  .nav-inner{
+    padding:8px 14px;
+  }
+
+  .container{
+    padding:18px 12px 35px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .dashboard-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .dashboard-head h2{
+    font-size:22px;
+  }
+
+  .admin-grid{
+    grid-template-columns:1fr;
+  }
+
+  .topic-grid{
+    grid-template-columns:1fr;
+  }
+
+  .notice-top{
+    flex-direction:column;
+    gap:4px;
+  }
 }
 </style>
 </head>
-<body class="w-screen min-h-screen flex flex-col justify-between selection:bg-accent selection:text-white">
-​<!-- LAYER 1: Unity Style Intro Animation Screen -->
-<div id="introScreen" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center cursor-pointer w-screen h-screen" onclick="skipIntro()">
-<div class="text-center px-4">
-<h2 class="text-zinc-500 text-xs sm:text-sm uppercase tracking-[0.4em] mb-3 font-semibold">Presents</h2>
-<h1 class="intro-font text-3xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-300 to-indigo-400 opacity-0 animate-unity">
-GOTURU INTERACTIONS
-</h1>
-<p class="text-zinc-600 text-xs mt-6 tracking-widest uppercase animate-pulse">Click anywhere or wait to enter portal</p>
-</div>
-</div>
-​<!-- LAYER 2: Secure Authentication Portal -->
-<div id="authContainer" class="hidden w-full flex-1 items-center justify-center p-4">
-<div class="w-full max-w-md bg-cardBg border border-zinc-800 rounded-2xl shadow-2xl p-6 sm:p-8 backdrop-blur-md">
-<div class="text-center mb-6">
-<div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white text-xl mx-auto mb-3 shadow-lg">G</div>
-<h2 class="intro-font text-xl sm:text-2xl font-bold tracking-wider text-purple-400">GOTURU INTERACTIONS</h2>
-<p class="text-zinc-400 text-xs mt-1" id="authSubtitle">Secure Portal Authentication</p>
-</div>
-​<!-- Portal Type Switcher -->
-<div class="grid grid-cols-3 gap-1 bg-zinc-900 p-1 rounded-xl mb-6 border border-zinc-800 text-center">
-<button onclick="switchAuthMode('userLogin')" id="btnUserLogin" class="py-2 text-[11px] sm:text-xs font-semibold rounded-lg bg-accent text-white transition-all shadow-sm">User Login</button>
-<button onclick="switchAuthMode('userSignup')" id="btnUserSignup" class="py-2 text-[11px] sm:text-xs font-semibold rounded-lg text-zinc-400 hover:text-white transition-all">Sign Up</button>
-<button onclick="switchAuthMode('adminLogin')" id="btnAdminLogin" class="py-2 text-[11px] sm:text-xs font-semibold rounded-lg text-zinc-400 hover:text-white transition-all text-purple-400">Admin Login</button>
-</div>
-​<!-- Auth Forms -->
-<form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-<div>
-<label id="nameLabel" class="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Username</label>
-<input type="text" id="authName" required placeholder="Enter username..." class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-sm transition-all">
-</div>
-​<div>
-<label class="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Password</label>
-<input type="password" id="authPassword" required placeholder="••••••••" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-sm transition-all">
-</div>
-​<div id="confirmPasswordContainer" class="hidden">
-<label class="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Confirm Password</label>
-<input type="password" id="confirmPassword" placeholder="••••••••" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-sm transition-all">
-</div>
-​<div id="authErrorMsg" class="text-red-400 text-xs text-center hidden font-semibold bg-red-500/10 border border-red-500/30 p-2.5 rounded-lg"></div>
-​<button type="submit" id="authSubmitBtn" class="w-full py-3 bg-accent hover:bg-accentHover text-white font-semibold rounded-xl transition-all shadow-lg shadow-purple-500/20 text-sm mt-2">
-Sign In
-</button>
-</form>
-</div>
-</div>
-​<!-- LAYER 3: Main Dashboard Workspace -->
-<div id="mainDashboard" class="hidden w-full flex-1 flex flex-col">
-<!-- Top Navigation Bar -->
-<header class="w-full border-b border-zinc-800 bg-cardBg/90 backdrop-blur sticky top-0 z-30 px-4 sm:px-6 py-4 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white shadow-md">
-G
-</div>
-<span class="intro-font font-bold tracking-wider text-xs sm:text-base text-zinc-100">GOTURU INTERACTIONS</span>
-</div>
-​<!-- Profile Drawer Trigger Button -->
-<div class="relative">
-<button onclick="toggleProfileDrawer()" class="flex items-center space-x-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-3 py-2 rounded-xl transition-all group">
-<div id="profileAvatar" class="w-8 h-8 rounded-lg bg-purple-600/30 border border-purple-500/50 flex items-center justify-center font-bold text-purple-300 text-xs">
-U
-</div>
-<div class="text-left hidden sm:block">
-<div id="navUserName" class="text-xs font-semibold text-zinc-200 truncate max-w-[120px]">User</div>
-<div id="navBadge" class="text-[10px] text-zinc-400">Member</div>
-</div>
-<svg class="w-4 h-4 text-zinc-400 group-hover:text-zinc-200 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-</button>
-</div>
-</header>
-​<!-- Dashboard Workspace Body -->
-<main class="w-full max-w-6xl mx-auto p-4 sm:p-6 space-y-6 flex-1">
-​<!-- BOX 4: Notification Board (Top Position) -->
-<div class="bg-cardBg border border-purple-500/40 rounded-2xl p-6 relative shadow-lg">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center space-x-2">
-<span class="px-2.5 py-1 bg-purple-500/20 border border-purple-500/50 text-purple-300 rounded-lg text-[10px] font-bold uppercase tracking-wider">Box 04 • Notification Board</span>
-<h3 class="text-xs sm:text-sm font-semibold text-zinc-200">Official Portal Announcements</h3>
-</div>
-<!-- Admin Edit Controls Toggle (Visible only to Admin) -->
-<div id="adminNotifControlsBtn" class="hidden">
-<button onclick="openNotifModal()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold rounded-lg transition-all shadow">
-+ Add / Manage Notice
-</button>
-</div>
-</div>
-​<!-- Display Active Notifications -->
-<div id="notificationDisplayArea" class="space-y-3">
-<!-- Populated dynamically -->
-</div>
-</div>
-​<!-- Welcome Header -->
-<div class="bg-cardBg border border-zinc-800 rounded-2xl p-6 relative overflow-hidden shadow-lg">
-<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-<h2 class="intro-font text-lg sm:text-xl font-bold text-zinc-100 mb-2" id="welcomeTitle">Welcome to Goturu Portal</h2>
-<p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-Official secure portal for module execution, creation timelines, and youth happiness surveys.
-</p>
-</div>
-​<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- BOX 1: Goturu Interactions Info & Slow-mo Popup -->
-<div onclick="openBox1Modal()" class="bg-cardBg hover:bg-zinc-900/80 border border-zinc-800 hover:border-purple-500/50 p-6 rounded-2xl cursor-pointer transition-all shadow-lg group flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-3">
-<span class="px-2.5 py-1 bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-lg text-xs font-bold uppercase tracking-wider">Box 01 • Module</span>
-<span class="text-xs text-zinc-500 group-hover:text-purple-400 transition-colors">Tap to launch →</span>
-</div>
-<h3 class="text-lg sm:text-xl font-black text-zinc-100 intro-font tracking-wide mb-2">GOTURU INTERACTIONS</h3>
-<p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">View foundation history, creator details, and official slow-motion creation timeline.</p>
-</div>
-<div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500">
-<span>Status: Active</span>
-<span class="text-purple-400 font-semibold">View Details</span>
-</div>
-</div>
-​<!-- BOX 2: Typo Stim Game Link -->
-<div onclick="openBox2Modal()" class="bg-cardBg hover:bg-zinc-900/80 border border-zinc-800 hover:border-purple-500/50 p-6 rounded-2xl cursor-pointer transition-all shadow-lg group flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-3">
-<span class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs font-bold uppercase tracking-wider">Box 02 • Module</span>
-<span class="text-xs text-zinc-500 group-hover:text-emerald-400 transition-colors">Play game →</span>
-</div>
-<h3 class="text-lg sm:text-xl font-black text-zinc-100 intro-font tracking-wide mb-2">TYPO STIM GAME</h3>
-<p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">Started by Project: Intergalactic Typing Defense arcade. Tap to launch game.</p>
-</div>
-<div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500">
-<span>Arcade Edition</span>
-<span class="text-emerald-400 font-semibold">Launch Game</span>
-</div>
-</div>
-​<!-- BOX 3: Youth Suggestions & Feedback Arena -->
-<div onclick="openBox3Modal()" class="bg-cardBg hover:bg-zinc-900/80 border border-zinc-800 hover:border-purple-500/50 p-6 rounded-2xl cursor-pointer transition-all shadow-lg group md:col-span-2 flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-3">
-<span class="px-2.5 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-lg text-xs font-bold uppercase tracking-wider">Box 03 • Module</span>
-<span class="text-xs text-zinc-500 group-hover:text-blue-400 transition-colors">Open suggestions →</span>
-</div>
-<h3 class="text-lg sm:text-xl font-black text-zinc-100 intro-font tracking-wide mb-2">YOUTH HAPPINESS & SUGGESTIONS</h3>
-<p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">How to connect youth & requirement of youth happiness. Submit your personal feedback securely.</p>
-</div>
-<div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500">
-<span>Community Feedback</span>
-<span class="text-blue-400 font-semibold">Write Comment</span>
-</div>
-</div>
-</div>
-​<!-- ADMIN ULTRA SECURITY PANEL (Only visible to admin) -->
-<div id="adminUltraPanel" class="hidden bg-cardBg border border-purple-500/40 rounded-2xl p-6 relative">
-<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
-<div class="flex items-center space-x-2">
-<span class="px-2.5 py-1 bg-purple-500/20 border border-purple-500/50 text-purple-300 rounded-lg text-[10px] font-bold uppercase tracking-wider">Admin Security Panel</span>
-<h3 class="text-xs sm:text-sm font-semibold text-zinc-200">Active Sessions & Youth Comments Monitor</h3>
-</div>
-<span class="text-[11px] text-purple-400 font-mono">RESTRICTED (GOWRISANKAR GOTURU)</span>
-</div>
-<p class="text-xs text-zinc-400 mb-6">Confidential: Only you can view active logins and submitted youth suggestions, with full deletion control.</p>
-​<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<!-- Active Logged In Users -->
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-<h4 class="text-xs font-bold uppercase tracking-wider text-zinc-300 mb-3 flex items-center justify-between">
-<span>Active Login Sessions</span>
-<span id="activeSessionsCount" class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px]">0 Online</span>
-</h4>
-<div id="adminSessionsList" class="space-y-2 max-h-48 overflow-y-auto text-xs text-zinc-400">
-<!-- Populated dynamically -->
-</div>
-</div>
-​<!-- Submitted Suggestions with Delete Option -->
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-<h4 class="text-xs font-bold uppercase tracking-wider text-zinc-300 mb-3 flex items-center justify-between">
-<span>Saved Youth Suggestions</span>
-<span id="suggestionsCount" class="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-[10px]">0 Saved</span>
-</h4>
-<div id="adminSuggestionsList" class="space-y-2 max-h-48 overflow-y-auto text-xs text-zinc-400">
-<!-- Populated dynamically -->
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
-​<!-- Profile Drawer & Overlay -->
-<div id="profileDrawerOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity" onclick="toggleProfileDrawer()"></div>
-<div id="profileDrawer" class="fixed top-0 right-0 h-full w-80 bg-cardBg border-l border-zinc-800 z-50 transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl">
-<div>
-<div class="flex items-center justify-between pb-4 border-b border-zinc-800">
-<span class="text-xs font-bold uppercase tracking-wider text-zinc-400">Profile & Session</span>
-<button onclick="toggleProfileDrawer()" class="p-1.5 text-zinc-400 hover:text-white rounded-lg bg-zinc-900 border border-zinc-800">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-</button>
-</div>
-​<!-- Profile Details Card -->
-<div class="mt-6 text-center">
-<div id="drawerAvatar" class="w-16 h-16 rounded-2xl bg-purple-600/20 border-2 border-purple-500/50 flex items-center justify-center font-bold text-purple-300 text-xl mx-auto mb-3 shadow-lg">
-U
-</div>
-<h3 id="drawerName" class="text-base font-semibold text-zinc-100">User Name</h3>
-<p id="drawerSub" class="text-xs text-zinc-400 mt-1 font-mono">Goturu Interactions Portal</p>
-<div class="mt-3 inline-block">
-<span id="drawerRoleBadge" class="px-2.5 py-1 bg-purple-500/20 border border-purple-500/40 text-purple-300 rounded-full text-[10px] font-bold uppercase tracking-wider">Member</span>
-</div>
-</div>
-</div>
-​<!-- Logout Option -->
-<div class="pt-6 border-t border-zinc-800">
-<button onclick="handleLogout()" class="w-full py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-semibold rounded-xl transition-all text-xs flex items-center justify-center space-x-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-<span>Logout Session</span>
-</button>
-</div>
-</div>
-​<!-- MODAL 1: Loading Process & Goturu Interactions Slow-Mo Intro Details -->
-<div id="modalBox1" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-<div class="bg-cardBg border border-zinc-800 rounded-2xl p-6 max-w-md w-full shadow-2xl relative text-center">
-<div id="loaderContainer" class="py-6 flex flex-col items-center">
-<!-- Circular Percentage Spinner -->
-<div class="relative w-24 h-24 flex items-center justify-center mb-4">
-<svg class="w-full h-full transform -rotate-90">
-<circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" class="text-zinc-800 fill-none"></circle>
-<circle id="spinnerProgress" cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" stroke-dasharray="251.2" stroke-dashoffset="251.2" class="text-purple-500 fill-none spinner-circle"></circle>
-</svg>
-<div id="loaderPercent" class="absolute intro-font text-lg font-bold text-zinc-200">0%</div>
-</div>
-<p class="text-xs text-zinc-400 uppercase tracking-widest animate-pulse">Loading Goturu Portal...</p>
-</div>
-​<div id="modalBox1Content" class="hidden space-y-4 text-left">
-<div class="flex items-center justify-between pb-3 border-b border-zinc-800">
-<h3 class="intro-font text-sm font-bold text-purple-400">GOTURU INTERACTIONS</h3>
-<button onclick="closeModals()" class="text-zinc-500 hover:text-zinc-200 text-xs">Close</button>
-</div>
-<div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
-<div class="text-xs text-zinc-300 leading-relaxed font-medium">
-The interaction started on today <span class="text-purple-400 font-bold">22/Sep/2026</span>
 
-By <span class="text-purple-400 font-bold">Mr. Gowrisankar Goturu</span>.
+<body>
+
+<div class="top-strip"></div>
+
+<header class="gov-header">
+  <div class="header-inner">
+    <div class="emblem">G</div>
+
+    <div class="brand">
+      <small>Public Service Style Portal</small>
+      <h1>Goturu Interactions Portal</h1>
+      <p>Official Documentation &amp; Community Interaction</p>
+    </div>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-title">
+      Citizen / Youth Interaction Services
+    </div>
+
+    <div id="navUser" class="nav-user">
+      Guest
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- AUTHENTICATION -->
+
+<section id="auth" class="auth-wrap paper">
+
+  <div class="auth-head">
+
+    <div class="emblem">G</div>
+
+    <h2>Portal Authentication</h2>
+
+    <p>
+      Secure access to Goturu Interactions services
+    </p>
+
+  </div>
+
+  <div class="tabs">
+
+    <button
+      id="tabLogin"
+      class="tab active"
+      onclick="setMode('login')">
+      User Login
+    </button>
+
+    <button
+      id="tabSignup"
+      class="tab"
+      onclick="setMode('signup')">
+      Sign Up
+    </button>
+
+    <button
+      id="tabAdmin"
+      class="tab"
+      onclick="setMode('admin')">
+      Admin Login
+    </button>
+
+  </div>
+
+  <form
+    class="form"
+    onsubmit="submitAuth(event)">
+
+    <div
+      id="authError"
+      class="error hidden">
+    </div>
+
+    <div class="field">
+
+      <label id="nameLabel">
+        Username
+      </label>
+
+      <input
+        id="username"
+        type="text"
+        required
+        autocomplete="username"
+        placeholder="Enter username">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        required
+        autocomplete="current-password"
+        placeholder="Enter password">
+
+    </div>
+
+    <div
+      id="confirmField"
+      class="field hidden">
+
+      <label>
+        Confirm Password
+      </label>
+
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Re-enter password">
+
+    </div>
+
+    <button
+      id="submitBtn"
+      class="primary"
+      type="submit">
+      Sign In
+    </button>
+
+    <div class="info">
+      This is an independent demonstration portal using a public-service/government-style interface.
+      It is not an official government website.
+    </div>
+
+  </form>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section
+  id="dashboard"
+  class="hidden">
+
+  <div class="dashboard-head">
+
+    <div>
+
+      <h2 id="welcome">
+        Welcome to Goturu Portal
+      </h2>
+
+      <p>
+        Documentation, announcements, youth interaction and community feedback services.
+      </p>
+
+    </div>
+
+    <button
+      class="profile-btn"
+      onclick="openDrawer()">
+      Profile / Session
+    </button>
+
+  </div>
+
+
+  <div class="grid">
+
+    <!-- NOTIFICATION BOARD -->
+
+    <section class="card full">
+
+      <div class="card-head">
+
+        <h3>
+          Official Portal Announcements
+        </h3>
+
+        <div id="noticeAdmin" class="hidden">
+
+          <button
+            class="secondary"
+            onclick="openNoticeEditor()">
+            + Add Notice
+          </button>
+
+        </div>
+
+      </div>
+
+      <div
+        id="notices"
+        class="card-body">
+      </div>
+
+    </section>
+
+
+    <!-- BOX 01 -->
+
+    <section class="card module">
+
+      <div class="card-body">
+
+        <span class="badge">
+          Box 01 • Module
+        </span>
+
+        <h3>
+          Goturu Interactions
+        </h3>
+
+        <p>
+          Foundation history, creator details and documented creation timeline.
+        </p>
+
+      </div>
+
+      <div class="card-head">
+
+        <span class="muted" style="font-size:10px">
+          Status: Active
+        </span>
+
+        <button
+          class="secondary"
+          onclick="openBox1()">
+          View Details
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOX 02 -->
+
+    <section class="card module">
+
+      <div class="card-body">
+
+        <span class="badge">
+          Box 02 • Module
+        </span>
+
+        <h3>
+          Typo Stim Game
+        </h3>
+
+        <p>
+          Access the Intergalactic Typing Defense arcade project.
+        </p>
+
+      </div>
+
+      <div class="card-head">
+
+        <span class="muted" style="font-size:10px">
+          Arcade Edition
+        </span>
+
+        <button
+          class="secondary"
+          onclick="openBox2()">
+          Launch Game
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOX 03 -->
+
+    <section class="card module full">
+
+      <div class="card-body">
+
+        <span class="badge">
+          Box 03 • Module
+        </span>
+
+        <h3>
+          Youth Happiness &amp; Suggestions
+        </h3>
+
+        <p>
+          Share suggestions about connecting youth and requirements related to youth happiness.
+        </p>
+
+      </div>
+
+      <div class="card-head">
+
+        <span class="muted" style="font-size:10px">
+          Community Feedback
+        </span>
+
+        <button
+          class="secondary"
+          onclick="openBox3()">
+          Write Suggestion
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ADMIN PANEL -->
+
+    <section
+      id="adminPanel"
+      class="card admin full hidden">
+
+      <div class="card-head">
+
+        <h3>
+          Administrative Monitoring Panel
+        </h3>
+
+        <span class="badge">
+          Restricted Area
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="admin-grid">
+
+          <div>
+
+            <h4 class="admin-title">
+              Active Login Sessions
+            </h4>
+
+            <div
+              id="sessions"
+              class="list">
+            </div>
+
+          </div>
+
+          <div>
+
+            <h4 class="admin-title">
+              Saved Youth Suggestions
+            </h4>
+
+            <div
+              id="suggestions"
+              class="list">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+  Goturu Interactions Portal
+  • Documentation &amp; Community Services
+  • Independent Demonstration Portal
+
+</footer>
+
+
+<!-- MODAL -->
+
+<div
+  id="modalBack"
+  class="modal-back hidden"
+  onclick="closeModal(event)">
+
+  <div
+    class="modal"
+    onclick="event.stopPropagation()">
+
+    <div class="modal-head">
+
+      <h3 id="modalTitle">
+        Portal
+      </h3>
+
+      <button
+        class="close"
+        onclick="hideModal()">
+        Close
+      </button>
+
+    </div>
+
+    <div
+      id="modalBody"
+      class="modal-body">
+    </div>
+
+  </div>
+
 </div>
-<div class="text-[11px] text-zinc-500 leading-relaxed">
-Official government-grade portal initialized with high-precision security.
+
+
+<!-- PROFILE DRAWER -->
+
+<div
+  id="drawerOverlay"
+  class="overlay hidden"
+  onclick="closeDrawer()">
 </div>
-</div>
-<button onclick="closeModals()" class="w-full py-2.5 bg-accent hover:bg-accentHover text-white text-xs font-semibold rounded-xl transition-all">Got It</button>
-</div>
-</div>
-</div>
-​<!-- MODAL 2: Typo Stim Game Link -->
-<div id="modalBox2" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-<div class="bg-cardBg border border-zinc-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center">
-<h3 class="intro-font text-base font-bold text-emerald-400 mb-2">TYPO STIM ARCADE</h3>
-<p class="text-xs text-zinc-400 mb-6 leading-relaxed">
-Started by Project: Intergalactic Typing Defense.
-Click below to launch the live web application.
-</p>
-<div class="space-y-3">
-<a href="https://type-os-time.vercel.app/" target="_blank" class="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl transition-all shadow-lg shadow-emerald-600/20">
-Launch Typo Stim Game 🚀
-</a>
-<button onclick="closeModals()" class="w-full py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-semibold rounded-xl transition-all">Cancel</button>
-</div>
-</div>
-</div>
-​<!-- MODAL 3: Youth Suggestions & Feedback Arena -->
-<div id="modalBox3" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-<div class="bg-cardBg border border-zinc-800 rounded-2xl p-6 max-w-md w-full shadow-2xl text-left">
-<div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
-<h3 class="intro-font text-sm font-bold text-blue-400">YOUTH HAPPINESS & SUGGESTIONS</h3>
-<button onclick="closeModals()" class="text-zinc-500 hover:text-zinc-200 text-xs">Close</button>
-</div>
-​<!-- Sub Options -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-<button onclick="selectSuggestionTopic('How to connect youth')" id="topicBtn1" class="p-3 bg-zinc-900 border border-purple-500/50 rounded-xl text-xs font-semibold text-zinc-200 hover:border-accent transition-all text-left">
-1. How to connect youth
-</button>
-<button onclick="selectSuggestionTopic('Requirement of youth happiness')" id="topicBtn2" class="p-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-semibold text-zinc-200 hover:border-accent transition-all text-left">
-2. Requirement of youth happiness
-</button>
-</div>
-​<!-- Comment Box -->
-<div class="space-y-3">
-<label class="block text-xs font-medium text-zinc-400 uppercase tracking-wider" id="selectedTopicLabel">Selected Topic: How to connect youth</label>
-<textarea id="youthCommentInput" rows="4" placeholder="Suggestion on your words..." class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-xs transition-all resize-none"></textarea>
-<div id="suggestionSuccessMsg" class="text-emerald-400 text-xs text-center hidden">Suggestion saved successfully to portal database!</div>
-<button onclick="submitYouthSuggestion()" class="w-full py-3 bg-accent hover:bg-accentHover text-white text-xs font-semibold rounded-xl transition-all shadow-lg shadow-purple-500/20">
-Send & Save to Web
-</button>
-</div>
-</div>
-</div>
-​<!-- MODAL 4: Admin Notification Editor Modal -->
-<div id="modalNotif" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-<div class="bg-cardBg border border-purple-500/40 rounded-2xl p-6 max-w-md w-full shadow-2xl text-left">
-<div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
-<h3 class="intro-font text-sm font-bold text-purple-400">ADMIN NOTIFICATION MANAGER</h3>
-<button onclick="closeNotifModal()" class="text-zinc-500 hover:text-zinc-200 text-xs">Close</button>
-</div>
-<div class="space-y-3">
-<input type="hidden" id="editNotifId" value="">
-<div>
-<label class="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Notification Title</label>
-<input type="text" id="notifTitleInput" placeholder="e.g. Important Portal Update" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-sm">
-</div>
-<div>
-<label class="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Message Content</label>
-<textarea id="notifContentInput" rows="3" placeholder="Write notification here..." class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-accent text-xs resize-none"></textarea>
-</div>
-<button onclick="saveAdminNotification()" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold rounded-xl transition-all shadow-lg">
-Publish Notification Notice
-</button>
-</div>
-</div>
-</div>
-​<script>
-// High-security 3-layer encrypted / locked admin credentials
+
+<aside
+  id="drawer"
+  class="drawer hidden">
+
+  <button
+    class="close"
+    style="float:right"
+    onclick="closeDrawer()">
+    Close
+  </button>
+
+  <div style="clear:both"></div>
+
+  <div
+    id="drawerAvatar"
+    class="profile-circle">
+    U
+  </div>
+
+  <h3 id="drawerName">
+    User
+  </h3>
+
+  <div
+    id="drawerRole"
+    class="drawer-role">
+    Member
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="drawer-info">
+
+    <strong style="color:var(--navy)">
+      Portal Session
+    </strong>
+
+    <p>
+      Your current portal session is active.
+    </p>
+
+    <p>
+      User data in this demonstration build is stored in browser local storage.
+    </p>
+
+  </div>
+
+  <button
+    class="primary"
+    style="background:#963737;border-color:#742525;margin-top:20px"
+    onclick="logout()">
+    Logout Session
+  </button>
+
+</aside>
+
+
+<script>
+
 const ADMIN_USERNAME = "GOWRISANKAR GOTURU";
 const ADMIN_PASSWORD = "gowri@7799563932";
-​// State management
-let authMode = 'userLogin'; // 'userLogin', 'userSignup', 'adminLogin'
+
+let mode = "login";
 let currentUser = null;
-let selectedTopic = 'How to connect youth';
-​// Storage database with multi-layer fallback
-let registeredUsers = JSON.parse(localStorage.getItem('goturu_users') || '[]');
-let activeSessions = JSON.parse(localStorage.getItem('goturu_sessions') || '[]');
-let savedSuggestions = JSON.parse(localStorage.getItem('goturu_suggestions') || '[]');
-let portalNotifications = JSON.parse(localStorage.getItem('goturu_notifications') || JSON.stringify([
-{ id: 1, title: "Welcome Notice", content: "Goturu Interactions Portal is now live with enhanced security & admin monitoring.", time: "22/Sep/2026" }
-]));
-​// Auto transition intro screen after 3.2 seconds
-window.addEventListener('load', () => {
-setTimeout(() => {
-const intro = document.getElementById('introScreen');
-if (intro && !intro.classList.contains('intro-screen-hide')) {
-skipIntro();
+let selectedTopic = "How to connect youth";
+
+let users = readStorage(
+  "goturu_users",
+  []
+);
+
+let sessions = readStorage(
+  "goturu_sessions",
+  []
+);
+
+let suggestions = readStorage(
+  "goturu_suggestions",
+  []
+);
+
+let notices = readStorage(
+  "goturu_notifications",
+  [
+    {
+      id:1,
+      title:"Welcome Notice",
+      content:"Goturu Interactions Portal is now available with structured documentation, announcements and youth interaction services.",
+      time:"22/Sep/2026"
+    }
+  ]
+);
+
+
+function readStorage(key, fallback){
+
+  try{
+
+    const value =
+      localStorage.getItem(key);
+
+    return value
+      ? JSON.parse(value)
+      : fallback;
+
+  }catch(error){
+
+    return fallback;
+
+  }
+
 }
-}, 3200);
-renderNotifications();
-});
-​function skipIntro() {
-const intro = document.getElementById('introScreen');
-intro.classList.add('intro-screen-hide');
-setTimeout(() => {
-intro.style.display = 'none';
-document.getElementById('authContainer').classList.remove('hidden');
-document.getElementById('authContainer').classList.add('flex');
-}, 900);
+
+
+function saveStorage(key, value){
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(value)
+  );
+
 }
-​function switchAuthMode(mode) {
-authMode = mode;
-const btnUserLogin = document.getElementById('btnUserLogin');
-const btnUserSignup = document.getElementById('btnUserSignup');
-const btnAdminLogin = document.getElementById('btnAdminLogin');
-const confirmPassField = document.getElementById('confirmPasswordContainer');
-const authSubtitle = document.getElementById('authSubtitle');
-const submitBtn = document.getElementById('authSubmitBtn');
-const nameInput = document.getElementById('authName');
-const nameLabel = document.getElementById('nameLabel');
-const errorMsg = document.getElementById('authErrorMsg');
-errorMsg.classList.add('hidden');
-​// Reset buttons style
-btnUserLogin.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg text-zinc-400 hover:text-white transition-all';
-btnUserSignup.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg text-zinc-400 hover:text-white transition-all';
-btnAdminLogin.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg text-zinc-400 hover:text-white transition-all';
-​if (mode === 'userLogin') {
-btnUserLogin.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg bg-accent text-white transition-all shadow-sm';
-confirmPassField.classList.add('hidden');
-authSubtitle.innerText = 'Official User Login Portal';
-submitBtn.innerText = 'Sign In';
-nameLabel.innerText = 'Username';
-nameInput.placeholder = 'Enter username...';
-} else if (mode === 'userSignup') {
-btnUserSignup.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg bg-accent text-white transition-all shadow-sm';
-confirmPassField.classList.remove('hidden');
-authSubtitle.innerText = 'Create a New Portal Account';
-submitBtn.innerText = 'Sign Up';
-nameLabel.innerText = 'Choose Username';
-nameInput.placeholder = 'e.g. Rahul';
-} else if (mode === 'adminLogin') {
-btnAdminLogin.className = 'py-2 text-[11px] sm:text-xs font-semibold rounded-lg bg-purple-600 text-white transition-all shadow-sm';
-confirmPassField.classList.add('hidden');
-authSubtitle.innerText = 'Restricted Admin Security Portal';
-submitBtn.innerText = 'Admin Secure Sign In';
-nameLabel.innerText = 'Admin Username';
-nameInput.placeholder = 'Enter admin name...';
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
 }
+
+
+/* AUTH MODE */
+
+function setMode(newMode){
+
+  mode = newMode;
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(button =>
+      button.classList.remove("active")
+    );
+
+  if(newMode === "login"){
+
+    document
+      .getElementById("tabLogin")
+      .classList.add("active");
+
+  }
+
+  if(newMode === "signup"){
+
+    document
+      .getElementById("tabSignup")
+      .classList.add("active");
+
+  }
+
+  if(newMode === "admin"){
+
+    document
+      .getElementById("tabAdmin")
+      .classList.add("active");
+
+  }
+
+  document
+    .getElementById("confirmField")
+    .classList.toggle(
+      "hidden",
+      newMode !== "signup"
+    );
+
+  document
+    .getElementById("nameLabel")
+    .textContent =
+      newMode === "admin"
+      ? "Admin Username"
+      : newMode === "signup"
+      ? "Choose Username"
+      : "Username";
+
+  document
+    .getElementById("username")
+    .placeholder =
+      newMode === "admin"
+      ? "Enter admin name"
+      : newMode === "signup"
+      ? "e.g. Rahul"
+      : "Enter username";
+
+  document
+    .getElementById("submitBtn")
+    .textContent =
+      newMode === "admin"
+      ? "Admin Secure Sign In"
+      : newMode === "signup"
+      ? "Sign Up"
+      : "Sign In";
+
+  document
+    .getElementById("authError")
+    .classList.add("hidden");
+
 }
-​function handleAuthSubmit(e) {
-e.preventDefault();
-const nameInput = document.getElementById('authName').value.trim();
-const passwordInput = document.getElementById('authPassword').value;
-const errorDiv = document.getElementById('authErrorMsg');
-errorDiv.classList.add('hidden');
-​if (authMode === 'adminLogin') {
-if (nameInput.toUpperCase() !== ADMIN_USERNAME || passwordInput !== ADMIN_PASSWORD) {
-errorDiv.innerText = 'Access Denied: Invalid Admin Credentials!';
-errorDiv.classList.remove('hidden');
-return;
+
+
+/* LOGIN */
+
+function submitAuth(event){
+
+  event.preventDefault();
+
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+  const error =
+    document.getElementById("authError");
+
+  error.classList.add("hidden");
+
+
+  /* ADMIN */
+
+  if(mode === "admin"){
+
+    if(
+      username.toUpperCase() !== ADMIN_USERNAME ||
+      password !== ADMIN_PASSWORD
+    ){
+
+      showError(
+        "Access denied: invalid administrator credentials."
+      );
+
+      return;
+
+    }
+
+    currentUser = {
+      name:"Gowrisankar Goturu",
+      role:"Admin",
+      loginTime:new Date().toLocaleTimeString()
+    };
+
+  }
+
+
+  /* SIGN UP */
+
+  else if(mode === "signup"){
+
+    const confirmPassword =
+      document
+        .getElementById("confirmPassword")
+        .value;
+
+    if(password !== confirmPassword){
+
+      showError(
+        "Passwords do not match."
+      );
+
+      return;
+
+    }
+
+    if(!username){
+
+      showError(
+        "Please enter a username."
+      );
+
+      return;
+
+    }
+
+    if(
+      users.some(
+        user =>
+          user.name.toLowerCase() ===
+          username.toLowerCase()
+      )
+    ){
+
+      showError(
+        "Username already exists."
+      );
+
+      return;
+
+    }
+
+    if(
+      username.toUpperCase() ===
+      ADMIN_USERNAME
+    ){
+
+      showError(
+        "This username is reserved for the administrator."
+      );
+
+      return;
+
+    }
+
+    users.push({
+      name:username,
+      password:password,
+      role:"Member"
+    });
+
+    saveStorage(
+      "goturu_users",
+      users
+    );
+
+    currentUser = {
+      name:username,
+      role:"Member",
+      loginTime:new Date().toLocaleTimeString()
+    };
+
+  }
+
+
+  /* USER LOGIN */
+
+  else{
+
+    if(
+      username.toUpperCase() ===
+      ADMIN_USERNAME &&
+      password === ADMIN_PASSWORD
+    ){
+
+      currentUser = {
+        name:"Gowrisankar Goturu",
+        role:"Admin",
+        loginTime:new Date().toLocaleTimeString()
+      };
+
+    }
+
+    else{
+
+      const user =
+        users.find(
+          item =>
+            item.name.toLowerCase() ===
+            username.toLowerCase()
+        );
+
+      if(!user){
+
+        showError(
+          "Account not found. Please check your username or sign up."
+        );
+
+        return;
+
+      }
+
+      if(user.password !== password){
+
+        showError(
+          "Incorrect password."
+        );
+
+        return;
+
+      }
+
+      currentUser = {
+        name:user.name,
+        role:user.role,
+        loginTime:new Date().toLocaleTimeString()
+      };
+
+    }
+
+  }
+
+
+  /* SESSION */
+
+  sessions =
+    sessions.filter(
+      item =>
+        item.name !== currentUser.name
+    );
+
+  sessions.push(currentUser);
+
+  saveStorage(
+    "goturu_sessions",
+    sessions
+  );
+
+
+  document
+    .getElementById("auth")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+
+  updateUserUI();
+
+  renderNotices();
+
+  renderAdmin();
+
 }
-currentUser = {
-name: 'Gowrisankar Goturu',
-role: 'Admin',
-loginTime: new Date().toLocaleTimeString()
-};
-} else if (authMode === 'userSignup') {
-const confirmPass = document.getElementById('confirmPassword').value;
-if (passwordInput !== confirmPass) {
-errorDiv.innerText = 'Passwords do not match!';
-errorDiv.classList.remove('hidden');
-return;
+
+
+function showError(message){
+
+  const error =
+    document.getElementById("authError");
+
+  error.textContent = message;
+
+  error.classList.remove("hidden");
+
 }
-​if (registeredUsers.some(u => u.name.toLowerCase() === nameInput.toLowerCase())) {
-errorDiv.innerText = 'Username already exists! Please login instead.';
-errorDiv.classList.remove('hidden');
-return;
+
+
+/* USER UI */
+
+function updateUserUI(){
+
+  document
+    .getElementById("navUser")
+    .textContent =
+      currentUser.name +
+      " • " +
+      currentUser.role;
+
+  document
+    .getElementById("welcome")
+    .textContent =
+      "Welcome back, " +
+      currentUser.name +
+      "!";
+
+  document
+    .getElementById("drawerName")
+    .textContent =
+      currentUser.name;
+
+  document
+    .getElementById("drawerRole")
+    .textContent =
+      currentUser.role;
+
+  document
+    .getElementById("drawerAvatar")
+    .textContent =
+      currentUser.name
+        .charAt(0)
+        .toUpperCase();
+
+  document
+    .getElementById("adminPanel")
+    .classList.toggle(
+      "hidden",
+      currentUser.role !== "Admin"
+    );
+
+  document
+    .getElementById("noticeAdmin")
+    .classList.toggle(
+      "hidden",
+      currentUser.role !== "Admin"
+    );
+
 }
-​if (nameInput.toUpperCase() === ADMIN_USERNAME) {
-errorDiv.innerText = 'This username is reserved for Administrator.';
-errorDiv.classList.remove('hidden');
-return;
+
+
+/* NOTICES */
+
+function renderNotices(){
+
+  const area =
+    document.getElementById("notices");
+
+  if(!notices.length){
+
+    area.innerHTML =
+      '<div class="muted" style="font-size:11px">No announcements available.</div>';
+
+    return;
+
+  }
+
+  const isAdmin =
+    currentUser &&
+    currentUser.role === "Admin";
+
+  area.innerHTML =
+    notices.map(notice => `
+
+      <div class="notice">
+
+        <div class="notice-top">
+
+          <strong>
+            ${escapeHTML(notice.title)}
+          </strong>
+
+          <time>
+            ${escapeHTML(notice.time)}
+          </time>
+
+        </div>
+
+        <p>
+          ${escapeHTML(notice.content)}
+        </p>
+
+        ${
+          isAdmin
+          ? `
+            <div class="notice-actions">
+
+              <button
+                class="small-btn blue"
+                onclick="openNoticeEditor(${notice.id})">
+                Edit
+              </button>
+
+              <button
+                class="small-btn danger"
+                onclick="deleteNotice(${notice.id})">
+                Delete
+              </button>
+
+            </div>
+          `
+          : ""
+        }
+
+      </div>
+
+    `).join("");
+
 }
-​const newUser = {
-name: nameInput,
-password: passwordInput,
-role: 'Member'
-};
-registeredUsers.push(newUser);
-localStorage.setItem('goturu_users', JSON.stringify(registeredUsers));
-​currentUser = {
-name: nameInput,
-role: 'Member',
-loginTime: new Date().toLocaleTimeString()
-};
-} else {
-// User Login Flow
-if (nameInput.toUpperCase() === ADMIN_USERNAME && passwordInput === ADMIN_PASSWORD) {
-currentUser = {
-name: 'Gowrisankar Goturu',
-role: 'Admin',
-loginTime: new Date().toLocaleTimeString()
-};
-} else {
-const found = registeredUsers.find(u => u.name.toLowerCase() === nameInput.toLowerCase());
-if (found) {
-if (found.password === passwordInput) {
-currentUser = {
-name: found.name,
-role: found.role,
-loginTime: new Date().toLocaleTimeString()
-};
-} else {
-errorDiv.innerText = 'Incorrect password! Please try again.';
-errorDiv.classList.remove('hidden');
-return;
+
+
+/* ADMIN NOTICE EDITOR */
+
+function openNoticeEditor(id = null){
+
+  if(!currentUser || currentUser.role !== "Admin")
+    return;
+
+  let notice = null;
+
+  if(id){
+
+    notice =
+      notices.find(
+        item => item.id == id
+      );
+
+  }
+
+  showModal(
+    id
+      ? "Edit Portal Notice"
+      : "Add Portal Notice",
+
+    `
+
+      <div class="field">
+
+        <label>
+          Notification Title
+        </label>
+
+        <input
+          id="noticeTitle"
+          value="${notice ? escapeHTML(notice.title) : ""}"
+          placeholder="Important Portal Update">
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Message Content
+        </label>
+
+        <textarea
+          id="noticeContent"
+          rows="5"
+          placeholder="Write notification here...">${notice ? escapeHTML(notice.content) : ""}</textarea>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="saveNotice(${id || "null"})">
+        Publish Notice
+      </button>
+
+    `
+  );
+
 }
-} else {
-errorDiv.innerText = 'Account not found! Please check your username or Sign Up.';
-errorDiv.classList.remove('hidden');
-return;
+
+
+function saveNotice(id){
+
+  const title =
+    document
+      .getElementById("noticeTitle")
+      .value
+      .trim();
+
+  const content =
+    document
+      .getElementById("noticeContent")
+      .value
+      .trim();
+
+  if(!title || !content){
+
+    alert(
+      "Please enter both title and message."
+    );
+
+    return;
+
+  }
+
+  if(id){
+
+    notices =
+      notices.map(
+        notice =>
+          notice.id == id
+          ? {
+              ...notice,
+              title:title,
+              content:content
+            }
+          : notice
+      );
+
+  }
+
+  else{
+
+    notices.unshift({
+      id:Date.now(),
+      title:title,
+      content:content,
+      time:new Date().toLocaleDateString()
+    });
+
+  }
+
+  saveStorage(
+    "goturu_notifications",
+    notices
+  );
+
+  hideModal();
+
+  renderNotices();
+
 }
+
+
+function deleteNotice(id){
+
+  if(
+    !confirm(
+      "Delete this portal notice?"
+    )
+  ) return;
+
+  notices =
+    notices.filter(
+      notice => notice.id !== id
+    );
+
+  saveStorage(
+    "goturu_notifications",
+    notices
+  );
+
+  renderNotices();
+
 }
+
+
+/* BOX 01 */
+
+function openBox1(){
+
+  showModal(
+    "Goturu Interactions",
+
+    `
+
+      <div class="modal-box">
+
+        <span class="badge">
+          Box 01 • Official Documentation
+        </span>
+
+        <h3
+          style="color:var(--navy);margin:12px 0 7px">
+          Goturu Interactions
+        </h3>
+
+        <p class="modal-text">
+          The interaction was initiated on
+          <strong>22/Sep/2026</strong>
+          by
+          <strong>Mr. Gowrisankar Goturu</strong>.
+        </p>
+
+      </div>
+
+      <div class="modal-box">
+
+        <strong style="color:var(--navy)">
+          Creation Timeline
+        </strong>
+
+        <p class="modal-text">
+          The portal provides a structured space for documentation,
+          announcements, youth interaction and community suggestions.
+        </p>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="hideModal()">
+        Close
+      </button>
+
+    `
+  );
+
 }
-​// Record active session for high-security admin monitor
-if (!activeSessions.some(s => s.name === currentUser.name)) {
-activeSessions.push(currentUser);
-localStorage.setItem('goturu_sessions', JSON.stringify(activeSessions));
+
+
+/* BOX 02 */
+
+function openBox2(){
+
+  showModal(
+    "Typo Stim Arcade",
+
+    `
+
+      <div class="modal-box">
+
+        <span class="badge">
+          Box 02 • Arcade Module
+        </span>
+
+        <h3
+          style="color:var(--navy);margin:12px 0 7px">
+          Intergalactic Typing Defense
+        </h3>
+
+        <p class="modal-text">
+          Launch the connected Typo Stim arcade project.
+        </p>
+
+      </div>
+
+      <a
+        href="https://type-os-time.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="primary"
+        style="display:block;text-align:center;text-decoration:none">
+        Launch Typo Stim Game
+      </a>
+
+    `
+  );
+
 }
-​// Transition to Dashboard
-document.getElementById('authContainer').classList.remove('flex');
-document.getElementById('authContainer').classList.add('hidden');
-​const dash = document.getElementById('mainDashboard');
-dash.classList.remove('hidden');
-​// Populate User Data in Navigation & Drawer
-document.getElementById('navUserName').innerText = currentUser.name;
-document.getElementById('navBadge').innerText = currentUser.role;
-document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
-​document.getElementById('drawerName').innerText = currentUser.name;
-document.getElementById('drawerRoleBadge').innerText = currentUser.role;
-document.getElementById('drawerAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
-​document.getElementById('welcomeTitle').innerText = Welcome back, ${currentUser.name}!;
-​// Display Admin Control Panel & Admin Notification Controls if Admin logs in
-if (currentUser.role === 'Admin') {
-document.getElementById('adminUltraPanel').classList.remove('hidden');
-document.getElementById('adminNotifControlsBtn').classList.remove('hidden');
-refreshAdminPanel();
-} else {
-document.getElementById('adminUltraPanel').classList.add('hidden');
-document.getElementById('adminNotifControlsBtn').classList.add('hidden');
+
+
+/* BOX 03 */
+
+function openBox3(){
+
+  showModal(
+    "Youth Happiness & Suggestions",
+
+    `
+
+      <div class="topic-grid">
+
+        <button
+          id="topic1"
+          class="topic active"
+          onclick="selectTopic('How to connect youth')">
+          1. How to connect youth
+        </button>
+
+        <button
+          id="topic2"
+          class="topic"
+          onclick="selectTopic('Requirement of youth happiness')">
+          2. Requirement of youth happiness
+        </button>
+
+      </div>
+
+      <div class="field">
+
+        <label id="selectedTopic">
+          Selected Topic: How to connect youth
+        </label>
+
+        <textarea
+          id="suggestionInput"
+          rows="6"
+          placeholder="Write your suggestion..."></textarea>
+
+      </div>
+
+      <div
+        id="suggestionMessage"
+        class="error hidden">
+      </div>
+
+      <button
+        class="primary"
+        onclick="submitSuggestion()">
+        Send &amp; Save Suggestion
+      </button>
+
+    `
+  );
+
 }
-renderNotifications();
+
+
+function selectTopic(topic){
+
+  selectedTopic = topic;
+
+  document
+    .getElementById("selectedTopic")
+    .textContent =
+      "Selected Topic: " +
+      topic;
+
+  document
+    .getElementById("topic1")
+    .classList.toggle(
+      "active",
+      topic === "How to connect youth"
+    );
+
+  document
+    .getElementById("topic2")
+    .classList.toggle(
+      "active",
+      topic === "Requirement of youth happiness"
+    );
+
 }
-​function toggleProfileDrawer() {
-const drawer = document.getElementById('profileDrawer');
-const overlay = document.getElementById('profileDrawerOverlay');
-​if (drawer.classList.contains('translate-x-full')) {
-drawer.classList.remove('translate-x-full');
-overlay.classList.remove('hidden');
-} else {
-drawer.classList.add('translate-x-full');
-overlay.classList.add('hidden');
+
+
+function submitSuggestion(){
+
+  const input =
+    document.getElementById(
+      "suggestionInput"
+    );
+
+  const message =
+    document.getElementById(
+      "suggestionMessage"
+    );
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+
+    message.textContent =
+      "Please write a suggestion before sending.";
+
+    message.classList.remove("hidden");
+
+    return;
+
+  }
+
+  suggestions.push({
+    id:Date.now(),
+    user:
+      currentUser
+      ? currentUser.name
+      : "Anonymous",
+    role:
+      currentUser
+      ? currentUser.role
+      : "Member",
+    topic:selectedTopic,
+    comment:text,
+    time:new Date().toLocaleString()
+  });
+
+  saveStorage(
+    "goturu_suggestions",
+    suggestions
+  );
+
+  message.classList.remove("error");
+  message.style.background="#eef8f0";
+  message.style.borderColor="#b5d3bd";
+  message.style.color="#2c6943";
+  message.textContent =
+    "Suggestion saved successfully.";
+
+  setTimeout(
+    () => {
+      hideModal();
+      renderAdmin();
+    },
+    900
+  );
+
 }
+
+
+/* ADMIN PANEL */
+
+function renderAdmin(){
+
+  if(
+    !currentUser ||
+    currentUser.role !== "Admin"
+  ){
+
+    return;
+
+  }
+
+  const sessionArea =
+    document.getElementById("sessions");
+
+  const suggestionArea =
+    document.getElementById("suggestions");
+
+
+  if(!sessions.length){
+
+    sessionArea.innerHTML =
+      '<div class="muted" style="padding:10px 0">No active sessions.</div>';
+
+  }
+
+  else{
+
+    sessionArea.innerHTML =
+      sessions.map(session => `
+
+        <div class="list-item">
+
+          <div class="row">
+
+            <strong>
+              ${escapeHTML(session.name)}
+            </strong>
+
+            <span class="muted">
+              ${escapeHTML(session.role)}
+            </span>
+
+          </div>
+
+          <div class="muted" style="margin-top:4px">
+            Login: ${escapeHTML(session.loginTime)}
+          </div>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  if(!suggestions.length){
+
+    suggestionArea.innerHTML =
+      '<div class="muted" style="padding:10px 0">No suggestions submitted yet.</div>';
+
+  }
+
+  else{
+
+    suggestionArea.innerHTML =
+      suggestions
+      .slice()
+      .reverse()
+      .map(item => `
+
+        <div class="list-item">
+
+          <div class="row">
+
+            <strong>
+              ${escapeHTML(item.user)}
+            </strong>
+
+            <button
+              class="small-btn danger"
+              onclick="deleteSuggestion(${item.id})">
+              Delete
+            </button>
+
+          </div>
+
+          <div
+            class="muted"
+            style="margin-top:4px">
+            ${escapeHTML(item.topic)}
+          </div>
+
+          <div class="suggestion-text">
+            ${escapeHTML(item.comment)}
+          </div>
+
+          <div
+            class="muted"
+            style="margin-top:4px">
+            ${escapeHTML(item.time)}
+          </div>
+
+        </div>
+
+      `).join("");
+
+  }
+
 }
-​function handleLogout() {
-if (currentUser) {
-activeSessions = activeSessions.filter(s => s.name !== currentUser.name);
-localStorage.setItem('goturu_sessions', JSON.stringify(activeSessions));
+
+
+function deleteSuggestion(id){
+
+  if(
+    !confirm(
+      "Delete this youth suggestion?"
+    )
+  ) return;
+
+  suggestions =
+    suggestions.filter(
+      item => item.id !== id
+    );
+
+  saveStorage(
+    "goturu_suggestions",
+    suggestions
+  );
+
+  renderAdmin();
+
 }
-toggleProfileDrawer();
-document.getElementById('mainDashboard').classList.add('hidden');
-document.getElementById('authContainer').classList.remove('flex');
-document.getElementById('authContainer').classList.add('hidden');
-document.getElementById('adminUltraPanel').classList.add('hidden');
-document.getElementById('adminNotifControlsBtn').classList.add('hidden');
-document.getElementById('authForm').reset();
-​// Return to auth screen
-document.getElementById('authContainer').classList.remove('hidden');
-document.getElementById('authContainer').classList.add('flex');
-currentUser = null;
-renderNotifications();
+
+
+/* MODAL */
+
+function showModal(title,body){
+
+  document
+    .getElementById("modalTitle")
+    .textContent = title;
+
+  document
+    .getElementById("modalBody")
+    .innerHTML = body;
+
+  document
+    .getElementById("modalBack")
+    .classList.remove("hidden");
+
 }
-​// Circular percentage loader animation for Box 1
-function openBox1Modal() {
-document.getElementById('modalBox1').classList.remove('hidden');
-document.getElementById('loaderContainer').classList.remove('hidden');
-document.getElementById('modalBox1Content').classList.add('hidden');
-​const circle = document.getElementById('spinnerProgress');
-const percentText = document.getElementById('loaderPercent');
-const circumference = 251.2;
-circle.style.strokeDashoffset = circumference;
-​let progress = 0;
-const interval = setInterval(() => {
-progress += 2;
-if (progress > 100) progress = 100;
-const offset = circumference - (progress / 100) * circumference;
-circle.style.strokeDashoffset = offset;
-percentText.innerText = progress + '%';
-​if (progress >= 100) {
-clearInterval(interval);
-setTimeout(() => {
-document.getElementById('loaderContainer').classList.add('hidden');
-document.getElementById('modalBox1Content').classList.remove('hidden');
-}, 300);
+
+
+function hideModal(){
+
+  document
+    .getElementById("modalBack")
+    .classList.add("hidden");
+
 }
-}, 25);
+
+
+function closeModal(event){
+
+  if(event.target.id === "modalBack"){
+
+    hideModal();
+
+  }
+
 }
-​function openBox2Modal() {
-document.getElementById('modalBox2').classList.remove('hidden');
+
+
+/* DRAWER */
+
+function openDrawer(){
+
+  document
+    .getElementById("drawer")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("drawerOverlay")
+    .classList.remove("hidden");
+
 }
-​function openBox3Modal() {
-document.getElementById('modalBox3').classList.remove('hidden');
-document.getElementById('suggestionSuccessMsg').classList.add('hidden');
-document.getElementById('youthCommentInput').value = '';
+
+
+function closeDrawer(){
+
+  document
+    .getElementById("drawer")
+    .classList.add("hidden");
+
+  document
+    .getElementById("drawerOverlay")
+    .classList.add("hidden");
+
 }
-​function closeModals() {
-document.getElementById('modalBox1').classList.add('hidden');
-document.getElementById('modalBox2').classList.add('hidden');
-document.getElementById('modalBox3').classList.add('hidden');
-document.getElementById('modalNotif').classList.add('hidden');
+
+
+/* LOGOUT */
+
+function logout(){
+
+  if(!currentUser)
+    return;
+
+  sessions =
+    sessions.filter(
+      session =>
+        session.name !==
+        currentUser.name
+    );
+
+  saveStorage(
+    "goturu_sessions",
+    sessions
+  );
+
+  currentUser = null;
+
+  closeDrawer();
+
+  document
+    .getElementById("dashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("auth")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("navUser")
+    .textContent = "Guest";
+
+  document
+    .getElementById("username")
+    .value = "";
+
+  document
+    .getElementById("password")
+    .value = "";
+
+  document
+    .getElementById("confirmPassword")
+    .value = "";
+
+  setMode("login");
+
 }
-​function selectSuggestionTopic(topic) {
-selectedTopic = topic;
-document.getElementById('selectedTopicLabel').innerText = Selected Topic: ${topic};
-if (topic.includes('connect')) {
-document.getElementById('topicBtn1').className = 'p-3 bg-zinc-900 border border-purple-500/50 rounded-xl text-xs font-semibold text-zinc-200 transition-all text-left';
-document.getElementById('topicBtn2').className = 'p-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-semibold text-zinc-200 transition-all text-left';
-} else {
-document.getElementById('topicBtn2').className = 'p-3 bg-zinc-900 border border-purple-500/50 rounded-xl text-xs font-semibold text-zinc-200 transition-all text-left';
-document.getElementById('topicBtn1').className = 'p-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-semibold text-zinc-200 transition-all text-left';
-}
-}
-​// Save suggestion comment to web database
-function submitYouthSuggestion() {
-const comment = document.getElementById('youthCommentInput').value.trim();
-if (!comment) {
-const errorMsg = document.getElementById('suggestionSuccessMsg');
-errorMsg.innerText = 'Please write a suggestion comment before sending.';
-errorMsg.classList.remove('text-emerald-400');
-errorMsg.classList.add('text-red-400');
-errorMsg.classList.remove('hidden');
-return;
-}
-​const newSuggestion = {
-id: Date.now(),
-user: currentUser ? currentUser.name : 'Anonymous Youth',
-topic: selectedTopic,
-comment: comment,
-time: new Date().toLocaleString()
-};
-​savedSuggestions.push(newSuggestion);
-localStorage.setItem('goturu_suggestions', JSON.stringify(savedSuggestions));
-​const successMsg = document.getElementById('suggestionSuccessMsg');
-successMsg.innerText = 'Suggestion saved successfully to portal database!';
-successMsg.classList.remove('text-red-400');
-successMsg.classList.add('text-emerald-400');
-successMsg.classList.remove('hidden');
-​setTimeout(() => {
-closeModals();
-if (currentUser && currentUser.role === 'Admin') {
-refreshAdminPanel();
-}
-}, 1200);
-}
-​// Admin ability to remove suggestions
-function removeSuggestion(id) {
-savedSuggestions = savedSuggestions.filter(s => s.id !== id);
-localStorage.setItem('goturu_suggestions', JSON.stringify(savedSuggestions));
-refreshAdminPanel();
-}
-​// Notification Board Management
-function openNotifModal(id = null) {
-document.getElementById('modalNotif').classList.remove('hidden');
-if (id) {
-const notif = portalNotifications.find(n => n.id === id);
-if (notif) {
-document.getElementById('editNotifId').value = notif.id;
-document.getElementById('notifTitleInput').value = notif.title;
-document.getElementById('notifContentInput').value = notif.content;
-}
-} else {
-document.getElementById('editNotifId').value = '';
-document.getElementById('notifTitleInput').value = '';
-document.getElementById('notifContentInput').value = '';
-}
-}
-​function closeNotifModal() {
-document.getElementById('modalNotif').classList.add('hidden');
-}
-​function saveAdminNotification() {
-const id = document.getElementById('editNotifId').value;
-const title = document.getElementById('notifTitleInput').value.trim();
-const content = document.getElementById('notifContentInput').value.trim();
-​if (!title || !content) return;
-​if (id) {
-portalNotifications = portalNotifications.map(n => n.id == id ? { ...n, title, content } : n);
-} else {
-portalNotifications.unshift({
-id: Date.now(),
-title,
-content,
-time: new Date().toLocaleDateString()
-});
-}
-​localStorage.setItem('goturu_notifications', JSON.stringify(portalNotifications));
-closeNotifModal();
-renderNotifications();
-}
-​function deleteNotification(id) {
-portalNotifications = portalNotifications.filter(n => n.id !== id);
-localStorage.setItem('goturu_notifications', JSON.stringify(portalNotifications));
-renderNotifications();
-}
-​function renderNotifications() {
-const area = document.getElementById('notificationDisplayArea');
-const isAdmin = currentUser && currentUser.role === 'Admin';
-​area.innerHTML = portalNotifications.length === 0
-? '<div class="text-zinc-500 italic text-xs">No notifications available.</div>'
-: portalNotifications.map(n => <div class="bg-zinc-900 border border-zinc-800 p-3.5 rounded-xl space-y-1 relative"> <div class="flex items-center justify-between text-xs"> <span class="font-bold text-purple-400">${n.title}</span> <div class="flex items-center space-x-2"> <span class="text-[10px] text-zinc-500">${n.time}</span> ${isAdmin ?
-<button onclick="openNotifModal(${n.id})" class="text-blue-400 hover:text-blue-300 text-[10px] px-1.5 py-0.5 bg-blue-500/10 rounded">Edit</button>
-<button onclick="deleteNotification(${n.id})" class="text-red-400 hover:text-red-300 text-[10px] px-1.5 py-0.5 bg-red-500/10 rounded">Delete</button>
-: ''} </div> </div> <p class="text-xs text-zinc-300">${n.content}</p> </div>).join('');
-}
-​// Refresh Admin High-Security Monitor
-function refreshAdminPanel() {
-const sessionsList = document.getElementById('adminSessionsList');
-const suggestionsList = document.getElementById('adminSuggestionsList');
-​document.getElementById('activeSessionsCount').innerText = ${activeSessions.length} Online;
-document.getElementById('suggestionsCount').innerText = ${savedSuggestions.length} Saved;
-​sessionsList.innerHTML = activeSessions.length === 0
-? '<div class="text-zinc-500 italic">No active sessions found.</div>'
-: activeSessions.map(s => <div class="p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center justify-between"> <div> <div class="font-semibold text-zinc-200">${s.name} <span class="text-[10px] text-purple-400 font-mono">(${s.role})</span></div> </div> <span class="text-[10px] text-emerald-400">@ ${s.loginTime}</span> </div>).join('');
-​suggestionsList.innerHTML = savedSuggestions.length === 0
-? '<div class="text-zinc-500 italic">No suggestions submitted yet.</div>'
-: savedSuggestions.map(sg => <div class="p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg space-y-1 relative group"> <div class="flex items-center justify-between text-[10px] text-zinc-500"> <span class="text-purple-400 font-semibold">${sg.user}</span> <div class="flex items-center space-x-2"> <span>${sg.time}</span> <button onclick="removeSuggestion(${sg.id})" class="text-red-400 hover:text-red-300 font-bold px-1.5 py-0.5 bg-red-500/10 rounded">Delete</button> </div> </div> <div class="text-[11px] font-medium text-zinc-300">Topic: ${sg.topic}</div> <div class="text-xs text-zinc-200 bg-zinc-900 p-2 rounded border border-zinc-800">"${sg.comment}"</div> </div>).join('');
-}
+
+
+/* KEYBOARD */
+
+document.addEventListener(
+  "keydown",
+  event => {
+if(event.key === "Escape"){
+
+      hideModal();
+      closeDrawer();
+
+    }
+
+  }
+);
+
 </script>
+
 </body>
 </html>
